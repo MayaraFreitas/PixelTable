@@ -1,0 +1,131 @@
+// Cores => B: AZUL G: VERDE  R: VERMELLHO  Y: AMARELO
+
+#include <stdio.h>
+#include <string.h>
+#include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetooth(10,11);
+
+#define PIN 4 // Pino
+#define LED_COUNT 150 // Quantidade de LED's
+
+//Cria uma instância da Classe Adafruit NeoPixel chamado "fitaDeLeds"
+Adafruit_NeoPixel fitaDeLeds = Adafruit_NeoPixel(LED_COUNT, PIN, NEO_GRB + NEO_KHZ800);
+
+unsigned long time; //Conta o tempo
+unsigned long timeout;  //TimeOut
+char arrayDeCores[10]; //Recebe os valores da serial
+int contadorDeCoresRecebidas = 0; //Conta cores recebidas
+int flag=0;//Indica que foi recebida informação pela serial
+char temp,cor;//Armazena dados recebidos pela serial
+char ultimaCor = "";
+
+void setup()
+{
+  bluetooth.begin(9600); //Inicia a serial
+  fitaDeLeds.begin(); // Inicia a fita de LED
+  limparFitaDeLed(); // Apaga a fita de LED
+  fitaDeLeds.show();  // Atualiza as fitas de LED
+}
+
+void loop()
+{
+  // Retorna o tempo em milisegundos desde que o Arduíno começou a rodar,
+  time = millis()%2;  //Divide por 2 e salva o resto
+  if(time==1||time==0)  //Compara se o resto é igual a 0 ou 1 e sempre vai ser
+  {
+    timeout++;
+    if (timeout>500)  // Verifica se houve estouro do tempo
+    {
+      flag=0; // Zera o aviso de que foi recebido algum dado na serial
+      contadorDeCoresRecebidas = 0;
+    }  
+  }
+   
+  // Verifica se houve recepção
+  if (bluetooth.available()>0)
+  {
+    flag=1; //Sinaliza que houve recepção
+    timeout=0;  // Zera o o tempo de reset
+    cor = bluetooth.read(); // Armazena o que foi recebido pela serial
+    contadorDeCoresRecebidas++;
+    arrayDeCores[contadorDeCoresRecebidas]=cor; // Decrementa 48 na tabela ascii para converter de decimal para char
+  }
+  
+  if (timeout>200&&flag==1) // Compara se houve estouro do timeout(se ficou um tempo sem recepção) e se houve recepção
+  {
+    flag=0; // Sera aviso de recepção
+    
+    //Acende os Leds com a cor passada pelo app
+    for(int i=0; i<=contadorDeCoresRecebidas; i++){
+        RGBLoop(arrayDeCores[i]);
+     }
+     
+    //Limpa o Array de cores
+    strcpy(arrayDeCores, "");
+  }
+}
+
+//##FUNCOES
+
+void limparFitaDeLed()
+{
+  for (int p=0; p<LED_COUNT; p++)
+  {
+    fitaDeLeds.setPixelColor(p, 0);
+    fitaDeLeds.show();
+  }
+}
+
+// Acente e paga todos os leds
+void RGBLoop(char cor){
+    //ACENDER
+    for(int k = 0; k < 100; k++) { 
+      switch(cor) { 
+        case 'R': setAll(k,0,0); break;
+        case 'G': setAll(0,k,0); break;
+        case 'B': setAll(0,0,k); break;
+        case 'Y': setAll(k,k,0); break;
+      }
+      showFitaDeLed();
+    }
+    //APAGA
+    for(int k = 99; k >= 0; k--) { 
+      switch(cor) { 
+        case 'R': setAll(k,0,0); break;
+        case 'G': setAll(0,k,0); break;
+        case 'B': setAll(0,0,k); break;
+        case 'Y': setAll(k,k,0); break;
+      }
+      showFitaDeLed();
+    }
+}
+
+void setAll(byte red, byte green, byte blue) {
+  for(int i = 0; i < LED_COUNT; i++ ) {
+    setPixel(i, red, green, blue); 
+  }
+  showFitaDeLed();
+}
+
+void setPixel(int Pixel, byte vermelho, byte verde, byte azul) {
+ #ifdef ADAFRUIT_NEOPIXEL_H 
+   fitaDeLeds.setPixelColor(Pixel, fitaDeLeds.Color(vermelho, verde, azul));
+ #endif
+ #ifndef ADAFRUIT_NEOPIXEL_H 
+   fitaDeLeds[Pixel].r = vermelho;
+   fitaDeLeds[Pixel].g = verde;
+   fitaDeLeds[Pixel].b = azul;
+ #endif
+}
+
+void showFitaDeLed() {
+ #ifdef ADAFRUIT_NEOPIXEL_H 
+   fitaDeLeds.show();
+ #endif
+ #ifndef ADAFRUIT_NEOPIXEL_H
+   FastLED.show();
+ #endif
+}
