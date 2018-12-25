@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,11 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TelaJogo"></activity>
-        <activity android:name=".ListaDispositivos"
-            android:theme="@android:style/Theme.Dialog"
+        <activity android:name=".TelaJogo" />
+        <activity
+            android:name=".ListaDispositivos"
             android:label="Dispositivos disponíveis"
-            />
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".Info" />
+        <activity android:name=".TelaDerrota"></activity>
     </application>
 
 </manifest>

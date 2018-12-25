@@ -4,51 +4,95 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="#343635">
+android:background="#2B2B2B">
 
-<Button
-    android:id="@+id/button"
-    android:layout_width="275dp"
-    android:layout_height="50dp"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="48dp"
-    android:background="@android:color/holo_red_light"
-    android:text="CONNECT"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.505"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.581" />
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/x" />
 
-<Button
-    android:id="@+id/button3"
-    android:layout_width="275dp"
-    android:layout_height="74dp"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="107dp"
-    android:background="@android:color/white"
-    android:text="START"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.505"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.812" />
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-75dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/t" />
 
-<Button
-    android:id="@+id/enabledBluetooth"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginTop="13dp"
-    android:layout_marginEnd="17dp"
-    android:layout_marginRight="17dp"
-    android:padding="15dp"
-    android:text="B" />
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-50dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/p" />
+
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="101dp"
+        android:layout_height="127dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="111dp"
+        app:srcCompat="@drawable/start" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="PixelTable"
+        android:textColor="@android:color/white"
+        android:textSize="65sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:text="Engineering Project"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        app:fontFamily="sans-serif-condensed" />
+
+    <Button
+        android:id="@+id/informacao"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/info_button"
+        android:text="i"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/rounded_button"
+        android:padding="10dp"
+        android:text="Connect to a device"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
 
 </RelativeLayout>

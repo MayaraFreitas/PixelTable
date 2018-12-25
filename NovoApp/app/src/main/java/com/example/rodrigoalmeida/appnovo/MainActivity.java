@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -17,8 +20,8 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     private Button connectBtn;
-    private Button startBtn;
-    private Button enabledBluetooth;
+    private ImageView startBtn;
+    private Button info;
 
 
     //Declaração para o bluetooth
@@ -38,11 +41,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        //ativa tela cheia no app
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         connectBtn = (Button) findViewById(R.id.button);
-        startBtn = (Button) findViewById(R.id.button3);
-        enabledBluetooth = (Button) findViewById(R.id.enabledBluetooth);
+        startBtn = (ImageView) findViewById(R.id.start);
+        info = (Button) findViewById(R.id.informacao);
 
         //area do codigo bluetooth
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
@@ -59,32 +67,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        enabledBluetooth.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick( View v){
-                turnOnBluetooth();
-            }
-        });
-
         startBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v){
 
                     if(myBluetooth.isEnabled()){
                         //Metodo que confirma o status ddo app para verificar se o botao conectar ja foi clicado
-                        abreJogo();
-                        /*if(connection == true){
-                            connectedThread.enviar("RGB");
+                        if(connection == true){
                             abreJogo();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "O dispositivo não está conectado!", Toast.LENGTH_SHORT).show();
+                        }
 
-                        }*/
-                        Toast.makeText(getApplicationContext(), "O dispositivo não está conectado!", Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(getApplicationContext(), "Ligue seu bluetooth para começar! ", Toast.LENGTH_SHORT).show();
                     }
                     //chama a tela do jogo
                 }
+        });
+
+        info.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( View v){
+                abreInfo();
+            }
         });
     }
 
@@ -96,6 +102,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void abreInfo() {
+        //muda para pagina do jogo
+        Intent intentInfo = new Intent(this, Info.class);
+        startActivity(intentInfo);
+
+    }
+
+
+
+
 
     //Mostrar dispositivos disponiveis para conexão
     public void enabledConection(){
@@ -153,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         ConnectedThreadSingleton.getInstance().setBluetoothSocket(mySocket);
                         ConnectedThreadSingleton.getInstance().start();
 
-                        connectBtn.setText("Disconnect");
+                        //connectBtn.setText("Disconnect");
 
                         Toast.makeText(getApplicationContext(), "Você está conectado com " + MAC, Toast.LENGTH_SHORT).show();
 
