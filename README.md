@@ -1,7 +1,7 @@
 # PixelTable
 "Jogo" com intuito de ajudar no aprendizado das cores
 
-![Mesa](https://github.com/MayaraFreitas/PixelTable/PixelTable.png)
+![Mesa](https://github.com/MayaraFreitas/PixelTable/blob/master/PixelTable.png)
 
 ### Artigo:
 
